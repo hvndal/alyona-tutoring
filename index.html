@@ -79,7 +79,7 @@ nav ul a::after{content:"";position:absolute;left:0;bottom:-3px;height:2px;width
 .kicker .dot{width:8px;height:8px;border-radius:50%;background:#2BB673;box-shadow:0 0 0 0 rgba(43,182,115,.6);animation:ping 2s infinite}
 @keyframes ping{70%{box-shadow:0 0 0 9px rgba(43,182,115,0)}100%{box-shadow:0 0 0 0 rgba(43,182,115,0)}}
 h1{font:400 clamp(3.1rem,8.4vw,7.2rem)/.9 var(--serif);letter-spacing:-.025em;margin:22px 0 22px}
-h1 .sci{color:var(--tomato);font-style:italic;position:relative}h1 .sci::after{content:"⚗";font-size:.32em;position:absolute;top:-.1em;right:-.55em;font-style:normal;animation:float 4s ease-in-out infinite}
+h1 .sci{color:var(--tomato);font-style:italic;position:relative}h1 .sci::after{content:"⚗";font-size:.3em;position:absolute;top:-.35em;right:-.2em;font-style:normal;animation:float 4s ease-in-out infinite}
 h1 .scrib{position:relative;display:inline-block;color:var(--plum)}
 h1 .scrib svg{position:absolute;left:-4%;bottom:-.08em;width:108%;height:.32em;overflow:visible}
 .draw{stroke-dasharray:600;stroke-dashoffset:600;animation:draw 1.4s .6s cubic-bezier(.6,0,.2,1) forwards}
@@ -124,8 +124,8 @@ section{padding:96px 0}
 .about{display:grid;grid-template-columns:1fr 1fr;gap:56px}
 .about p{margin-bottom:18px;color:var(--soft)}
 .about p:first-child::first-letter{float:left;font:400 5.2rem/.8 var(--serif);color:var(--plum);padding:6px 10px 0 0}
-blockquote{font:400 clamp(1.8rem,3.4vw,2.6rem)/1.12 var(--serif);font-style:italic;border-top:2px solid var(--ink);border-bottom:2px solid var(--ink);padding:48px 0 26px;position:relative}
-blockquote::before{content:"“";position:absolute;top:-30px;left:-6px;font-size:5rem;color:var(--gold);background:var(--paper);line-height:1;padding:0 8px}
+blockquote{font:400 clamp(1.8rem,3.4vw,2.6rem)/1.12 var(--serif);font-style:italic;border-top:2px solid var(--ink);border-bottom:2px solid var(--ink);padding:22px 0 26px;position:relative}
+blockquote::before{content:"“";display:block;font-size:4.5rem;color:var(--gold);line-height:.6;height:.42em;margin-bottom:6px}
 blockquote cite{display:block;margin-top:14px;font:700 1.3rem var(--hand);font-style:normal;color:var(--tomato)}
 .creds{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:28px}
 .cred{border:1.5px solid var(--ink);border-radius:12px;padding:14px 16px;background:var(--paper)}
@@ -153,7 +153,7 @@ blockquote cite{display:block;margin-top:14px;font:700 1.3rem var(--hand);font-s
 @media(max-width:880px){.mgrid{grid-template-columns:1fr}}
 .page{background:#fff;border:2px solid var(--ink);padding:10px;transform:rotate(-2.5deg);box-shadow:12px 12px 0 var(--gold);position:sticky;top:100px}
 .page img{width:100%;height:auto}
-.page .hand{position:absolute;bottom:-38px;right:10px;color:var(--gold);font-size:1.7rem;transform:rotate(-4deg)}
+.page .hand{display:block;text-align:right;margin-top:8px;color:var(--gold);font-size:1.7rem;transform:rotate(-4deg)}
 .step{display:grid;grid-template-columns:90px 1fr;gap:10px;padding:26px 0;border-top:1px solid rgba(244,238,224,.25)}
 .step:first-child{border-top:0;padding-top:0}
 .step .k{font:400 4.2rem/.8 var(--serif);font-style:italic;color:var(--gold)}
@@ -202,7 +202,7 @@ select:focus,input:focus{outline:3px solid var(--gold);outline-offset:1px}
 .way:hover{transform:translate(-3px,-3px);box-shadow:6px 6px 0 var(--ink)}
 .way .ic{width:56px;height:56px;border-radius:50%;border:2px solid var(--ink);display:grid;place-items:center;background:var(--c)}
 .way b{font:400 1.7rem/1 var(--serif);display:block}
-.way span{font-size:.92rem;color:var(--soft);word-break:break-all}
+.way span{font-size:.92rem;color:var(--soft);overflow-wrap:anywhere}
 .way .go{font:500 1.2rem var(--mono);transition:transform .25s}.way:hover .go{transform:translateX(5px)}
 .way.hero-way{background:var(--plum);color:var(--paper)}.way.hero-way span{color:rgba(244,238,224,.75)}
 
@@ -240,7 +240,7 @@ footer{background:var(--ink);color:var(--paper);padding:70px 0 34px;overflow:hid
  .hero{padding:28px 0 20px}.hero .w{gap:44px}.doodle,.arrow{display:none}
  h1{font-size:clamp(2.9rem,14vw,4rem);margin:16px 0}.lead{font-size:1.05rem}
  .ctas .btn{flex:1 1 100%;justify-content:center}
- .kicker .mono{font-size:.62rem}
+ .kicker .mono{font-size:.6rem;letter-spacing:.04em}.kicker .hide-sm{display:none}
  .pola{width:82%;box-shadow:7px 7px 0 var(--plum)}.stamp{width:92px;height:92px;right:-22px;bottom:24px}.stamp b{font-size:1.5rem}
  .mq .t{font-size:1.4rem}
  .sh{margin-bottom:26px}.sh h2{font-size:2.5rem}
@@ -292,7 +292,7 @@ footer{background:var(--ink);color:var(--paper);padding:70px 0 34px;overflow:hid
  <span class="doodle" style="right:3%;top:4%;animation-delay:-3s">π</span>
  <div class="w">
   <div>
-   <span class="kicker rv"><span class="dot"></span><span class="mono">Langley, BC · K–12 & adult ed · Taking students</span></span>
+   <span class="kicker rv"><span class="dot"></span><span class="mono">Langley, BC · K–12 & adult ed<span class="hide-sm"> · Taking students</span></span></span>
    <h1 class="rv" style="--d:.1s"><span class="sci">Science</span> <span class="chip">& math</span> that <span class="scrib"><i>finally</i><svg viewBox="0 0 300 30" preserveAspectRatio="none" aria-hidden="true"><path class="draw" d="M3 18 C 60 6, 120 26, 180 12 S 270 8, 297 16" fill="none" stroke="#E4572E" stroke-width="5" stroke-linecap="round"/></svg></span> clicks.</h1>
    <p class="lead rv" style="--d:.2s">One-on-one tutoring in <b>chemistry, biology & science</b> (plus math) from a UBC-trained biochemist and BC Certified Teacher. K–12 and adult learners. Clear explanations, lots of practice, way less stress.</p>
    <div class="ctas rv" style="--d:.3s">
