@@ -374,20 +374,26 @@ footer{background:var(--ink);color:var(--paper);padding:70px 0 34px;overflow:hid
    <div class="rv">
     <details open><summary>What happens in the free trial?</summary><p>30 minutes to get to know each other. We'll talk about what you're working on, try a few problems together, and see if we're a good fit. No commitment.</p></details>
     <details><summary>How much are lessons?</summary><p>$50 per hour, after the free 30-minute trial.</p></details>
-    <details><summary>Which grades and courses?</summary><p>Secondary students, Grades 8–12: Math, Pre-Calculus 11/12, Chemistry 11/12, Life Sciences 11, Anatomy & Physiology 12 and Science 8–10.</p></details>
+    <details><summary>Which grades and courses?</summary><p>Mostly Grades 6–12: Math, Pre-Calculus, Chemistry 11/12, Biology and Science. Also elementary (K–5), university-level biochemistry and adult education.</p></details>
     <details><summary>Where are you based?</summary><p>Langley, BC, working with families across Langley, Surrey, White Rock, Abbotsford and Metro Vancouver.</p></details>
     <details><summary>How do I book?</summary><p>Use the booking form, or text or email. The notebook on the right writes your first message for you.</p></details>
    </div>
    <div class="nb rv" style="--d:.12s">
     <h3>Pass a note</h3>
-    <p class="sub">pick a few, we'll write it for you ✎</p>
+    <p class="sub">same questions as the booking form, sent by text or email ✎</p>
+    <div class="fd"><label for="nm">Student name(s) &amp; adult contacting</label><input id="nm" placeholder="e.g. Maya (Gr 11), parent: Sam"></div>
     <div class="f2">
-     <div class="fd"><label for="g">Grade</label><select id="g"><option value="">—</option><option>Grade 8</option><option>Grade 9</option><option>Grade 10</option><option>Grade 11</option><option>Grade 12</option><option>Post-secondary</option></select></div>
-     <div class="fd"><label for="s">Subject</label><select id="s"><option value="">—</option><option>Math</option><option>Pre-Calculus</option><option>Chemistry</option><option>Biology</option><option>Science</option><option>a few subjects</option></select></div>
-     <div class="fd"><label for="goal">Goal</label><select id="goal"><option value="">—</option><option>catch up</option><option>raise a grade</option><option>prep for a test</option><option>get ahead</option><option>build confidence</option></select></div>
-     <div class="fd"><label for="area">Area</label><select id="area"><option value="">—</option><option>Langley</option><option>Surrey</option><option>White Rock</option><option>Abbotsford</option><option>Maple Ridge</option><option>Tri-Cities</option><option>Burnaby</option><option>Vancouver</option><option>elsewhere</option></select></div>
+     <div class="fd"><label for="s">Subject</label><select id="s"><option value="">—</option><option>Math</option><option>General Science (K–10)</option><option>Chemistry</option><option>Biology</option><option>Biochemistry</option><option value="other">Other…</option></select></div>
+     <div class="fd"><label for="g">Level</label><select id="g"><option value="">—</option><option>Elementary K–5</option><option>Grades 6–10</option><option>Grade 11</option><option>Grade 12</option><option>University level</option><option>Adult education</option><option value="other">Other…</option></select></div>
     </div>
-    <div class="fd"><label for="when">Best times</label><input id="when" placeholder="weekday evenings…"></div>
+    <div class="fd" id="so" hidden><label for="s2">Other subject / level</label><input id="s2" placeholder="e.g. Physics 11"></div>
+    <div class="fd"><label for="goal">Why tutoring?</label><select id="goal"><option value="">—</option><option>catch up / fill gaps</option><option>raise a grade</option><option>prep for a test or exam</option><option>get ahead</option><option>build confidence</option></select></div>
+    <div class="fd"><label for="why">Tell me a bit more (optional)</label><input id="why" placeholder="struggling with stoichiometry…"></div>
+    <div class="f2">
+     <div class="fd"><label for="when">Available for a trial</label><input id="when" placeholder="weekday evenings…"></div>
+     <div class="fd"><label for="mail">Email for the lesson link</label><input id="mail" type="email" placeholder="you@email.com"></div>
+    </div>
+    <div class="fd"><label for="xtra">Anything else?</label><input id="xtra" placeholder="optional"></div>
     <div class="pv" id="pv" aria-live="polite"></div>
     <div class="send"><a class="btn plum sm" id="tx" href="sms:+16478984338">Text it</a><a class="btn sm" id="em" href="mailto:alyona.kosovskykh@gmail.com">Email it</a><button class="btn sm" id="cp" type="button">Copy</button></div>
    </div>
@@ -442,15 +448,15 @@ const $=i=>document.getElementById(i);$('yr').textContent=new Date().getFullYear
 const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target)}}),{threshold:.12});
 document.querySelectorAll('.rv').forEach(el=>io.observe(el));
 function note(){
- const g=$('g').value,s=$('s').value,goal=$('goal').value,a=$('area').value,w=$('when').value.trim();
- let m="Hi Alyona! I'd love to book the free 30-min trial.";
- if(g||s)m+=`\nStudent: ${[g,s].filter(Boolean).join(', ')}`;
- if(goal)m+=`\nGoal: ${goal}`;if(a)m+=`\nArea: ${a}`;if(w)m+=`\nBest times: ${w}`;
- m+="\nThanks!";$('pv').textContent=m;const e=encodeURIComponent(m);
+ const v=i=>$(i).value.trim();let sub=v('s'),lv=v('g');$('so').hidden=!(sub==='other'||lv==='other');
+ if(sub==='other')sub=v('s2')||'Other';if(lv==='other')lv=v('s2')||'Other';
+ const L=[['Student / contact',v('nm')],['Subject',sub],['Level',lv],['Why tutoring',[v('goal'),v('why')].filter(Boolean).join(' – ')],['Trial availability',v('when')],['Email for lesson link',v('mail')],['Other notes',v('xtra')]].filter(x=>x[1]);
+ let m="Hi Alyona! I'd love to book the free 30-min trial lesson."+(L.length?"\n\n"+L.map(x=>x[0]+': '+x[1]).join("\n"):"")+"\n\nThanks!";
+ $('pv').textContent=m;const e=encodeURIComponent(m);
  $('tx').href=`sms:+16478984338?&body=${e}`;
- $('em').href=`mailto:alyona.kosovskykh@gmail.com?subject=${encodeURIComponent('Free trial lesson'+(s?' – '+s:''))}&body=${e}`;
+ $('em').href=`mailto:alyona.kosovskykh@gmail.com?subject=${encodeURIComponent('Trial lesson request'+(sub?' – '+sub:'')+(v('nm')?' ('+v('nm')+')':''))}&body=${e}`;
 }
-['g','s','goal','area','when'].forEach(i=>$(i).addEventListener('input',note));note();
+['nm','s','g','s2','goal','why','when','mail','xtra'].forEach(i=>$(i).addEventListener('input',note));note();
 $('cp').onclick=async()=>{try{await navigator.clipboard.writeText($('pv').textContent)}catch(_){}$('toast').classList.add('on');setTimeout(()=>$('toast').classList.remove('on'),1400)};
 </script>
 </body>
